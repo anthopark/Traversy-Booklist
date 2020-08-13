@@ -23,9 +23,6 @@ UI.prototype.addBookToList = function (book) {
         </tr>    
     `;
     tableBody.appendChild(row);
-
-
-
 }
 
 UI.prototype.showAlert = function (message, className) {
@@ -50,10 +47,14 @@ UI.prototype.clearFormFields = function () {
 }
 
 
+UI.prototype.deleteBook = function (target) {
+    if (target.className === 'delete') {
+        target.parentElement.parentElement.remove();
+    }
+}
 
 
 // add event listener
-
 document.querySelector('#book-form').addEventListener('submit', (e) => {
     const bookTitle = document.querySelector('#title').value;
     const bookAuthor = document.querySelector('#author').value;
@@ -72,3 +73,15 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 
     e.preventDefault();
 })
+
+
+// delete book when 'x' clicked
+document.querySelector('#book-list').addEventListener('click', (e) => {
+
+    const ui = new UI();
+
+    ui.deleteBook(e.target);
+    ui.showAlert('Successfully deleted', 'success');
+
+    e.preventDefault();
+});
